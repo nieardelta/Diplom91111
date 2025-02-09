@@ -14,7 +14,7 @@
 
 1. **Предварительные требования и необходимые компоненты**:
    - Установите [Liquibase](https://www.liquibase.org/download)
-   - Установите (В установщике сразу установится pgADmin) [PosgreSql] (https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+   - Установите (В установщике сразу установится pgADmin) [PosgreSql](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
    - По возможности сразу отключть блокировку выполнения сценариев в системе через PowerShell[Set-ExecutionPolicy RemoteSigned]
    - Настройка подключения к БД в `liquibase.properties`:
      ```properties
