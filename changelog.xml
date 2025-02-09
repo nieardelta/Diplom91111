@@ -1,0 +1,74 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+        <!--Определение корневого элемента databaseChangeLog.
+        Указывается пространство имен (xmlns) и схема (xsi:schemaLocation) для валидации XML. -->
+
+    <!-- Таблица для хранения запросов -->
+    <changeSet id="1" author="puk">
+	<!-- 
+            changeSet - это набор изменений, которые будут применены к базе данных.
+            Каждый changeSet имеет уникальный идентификатор (id) и автора (author).
+    -->
+        <comment>Создание таблицы requests</comment>
+        <createTable tableName="requests">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+			<!-- Является привичным ключём-->
+            <column name="ip_address" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="request_timestamp" type="TIMESTAMP">
+                <constraints nullable="false"/>
+				<!-- Добавил сразу ограничение на нулл поля -->
+            </column>
+        </createTable>
+		<!-- Rollback для changeSet 1 -->
+		<!--
+        <rollback>
+            <dropTable tableName="requests"/>
+        </rollback>
+		-->
+    </changeSet>
+
+    <!-- Таблица для хранения ответов -->
+    <changeSet id="2" author="puk">
+        <comment>Создание таблицы responses</comment>
+        <createTable tableName="responses">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+			<!-- Является привичным ключом -->
+            <column name="request_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_request_id" references="requests(id)"/>
+            </column>
+			<!-- 
+                Ограничение: столбец не может быть NULL.
+                foreignKeyName это имя внешнего ключа.
+                references это ссылка на столбец id таблицы requests.
+            -->
+            <column name="country_code" type="VARCHAR(2)"/>
+			<!--Код страны взял за 2 символа -->
+            <column name="country_name" type="VARCHAR(100)"/>
+			<!--Страна до 100 символов-->
+            <column name="city" type="VARCHAR(100)"/>
+			<!--Город, до 100-->
+            <column name="latitude" type="DOUBLE"/>
+			<!--Колонка для хранения широоты, сразу с плавающей точкой-->
+            <column name="longitude" type="DOUBLE"/>
+			<!--Колонка для хранения долготы, тоже с плавающей точкой-->
+            <column name="response_timestamp" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+		<!-- Rollback для changeSet 2 -->
+        <!--
+		<rollback>
+            <dropTable tableName="responses"/>
+        </rollback>
+		-->
+    </changeSet>
+</databaseChangeLog>
