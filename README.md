@@ -23,7 +23,7 @@
      password=123
      ```
 
-2. **Запуск **:
+2. **Запуск**:
 	```
 	liquibase --changeLogFile=changelog.xml update
 	```
