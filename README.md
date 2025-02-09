@@ -25,7 +25,7 @@
 
 2. **Запуск **:
 	```
- liquibase --changeLogFile=changelog.xml update
+	liquibase --changeLogFile=changelog.xml update
 	```
 ## 🗃️ Структура базы данных
 
